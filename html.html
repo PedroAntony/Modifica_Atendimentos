@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importar, Modificar e Baixar HTML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #file-input {
+            margin-bottom: 20px;
+        }
+        #output {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+        #download-btn {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Importar, Modificar e Baixar Atendimento</h1>
+    <input type="file" id="file-input" accept=".html">
+    <div id="output"></div>
+    <button id="download-btn">Baixar HTML Modificado</button>
+
+    <!-- Importar o ficheiro JS que contém a função de modificação -->
+    <script src="modifica.js"></script>
+    <script>
+        // Selecionar o input do ficheiro, a div de output e o botão de download
+        const fileInput = document.getElementById('file-input');
+        const output = document.getElementById('output');
+        const downloadBtn = document.getElementById('download-btn');
+
+        let modifiedContent = ''; // Variável para armazenar o conteúdo modificado
+
+        // Função para criar o ficheiro e permitir o download
+        function downloadModifiedFile(content, filename) {
+            const blob = new Blob([content], { type: 'text/html' }); // Criar um Blob com o conteúdo
+            const link = document.createElement('a'); // Criar um link temporário
+            link.href = URL.createObjectURL(blob); // Gerar uma URL temporária para o Blob
+            link.download = filename; // Definir o nome do ficheiro
+            document.body.appendChild(link); // Adicionar o link ao DOM
+            link.click(); // Simular um clique para iniciar o download
+            document.body.removeChild(link); // Remover o link do DOM
+        }
+
+        // Adicionar um evento quando o ficheiro é selecionado
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    let fileContent = e.target.result;
+
+                    // Chamar a função que altera o nome do atendente e remove a div
+                    modifiedContent = modificarNomeAtendenteEExcluirDiv(fileContent, "Atendente");
+
+                    // Exibir o conteúdo modificado como HTML processado
+                    output.innerHTML = modifiedContent;
+
+                    // Exibir o botão de download
+                    downloadBtn.style.display = 'inline-block';
+                };
+                reader.readAsText(file); // Ler o ficheiro como texto
+            } else {
+                output.innerHTML = "Nenhum ficheiro foi selecionado.";
+                downloadBtn.style.display = 'none';
+            }
+        });
+
+        // Adicionar evento ao botão de download
+        downloadBtn.addEventListener('click', function() {
+            // Chamar a função para baixar o ficheiro modificado
+            downloadModifiedFile(modifiedContent, 'html_modificado.html');
+        });
+    </script>
+
+</body>
+</html>
