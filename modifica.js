@@ -20,12 +20,25 @@ function modificarNomeAtendenteEExcluirDiv(html, novoNome) {
     divParaExcluir.remove();
   }
 
-  // 3. Identificar e remover a primeira div com a classe 'messages-message'
-  const primeiraMessage = div.querySelector(".messages-message");
+    // 3. Identificar e remover a primeira div com a classe 'messages-message'
+  const primeiraMessage = div.querySelector("span.message-text-body");
 
   if (primeiraMessage) {
-    //Remover a primeira div encontrada com a classe 'messages-message'
-    primeiraMessage.remove();
+    // Captura o texto atual do span
+    let textoOriginal = primeiraMessage.innerHTML;
+
+    // Encontra o índice do último fechamento de parêntese ')'
+    let ultimoParenteses = textoOriginal.lastIndexOf(")");
+
+    // Verifica se existe um ')' no texto
+    if (ultimoParenteses !== -1) {
+      // Extrai o conteúdo a partir do último parêntese
+      let novoTexto = textoOriginal.substring(ultimoParenteses + 1).trim();
+
+      // Atualiza o conteúdo do span com o novo texto
+      primeiraMessage.innerHTML = novoTexto;
+    }
+    // Se não houver ')' no texto, não faz nada.
   }
 
   // Retornar o HTML modificado
