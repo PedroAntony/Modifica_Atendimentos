@@ -5,7 +5,7 @@ function modificarNomeAtendenteEExcluirDiv(html, novoNome) {
   div.innerHTML = html; // Definir o conteúdo HTML dentro do elemento div
 
   // 1. Identificar todos os spans pelo nome da classe 'atendente-nome' dentro da div.agent
-  const atendentes = div.querySelectorAll("div.agent div.message-user");
+  const atendentes = div.querySelectorAll("div.agent div.message-user-name");
 
   // Modificar o conteúdo de todos os spans encontrados
   atendentes.forEach(function (atendente) {
