@@ -48,7 +48,7 @@ function modificarNomeAtendenteEExcluirDiv(html, novoNome) {
   horario.forEach(function (horario) {
     horario.textContent = ajustarHorario(horario.textContent);
     console.log(horario.textContent)
-    console.log(ajustarHorario(horario.textContent);)
+    console.log(ajustarHorario(horario.textContent))
   });
 
   // Modificar o conteúdo de todos os spans encontrados
