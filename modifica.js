@@ -6,6 +6,36 @@ function modificarNomeAtendenteEExcluirDiv(html, novoNome) {
 
   // 1. Identificar todos os spans pelo nome da classe 'atendente-nome' dentro da div.agent
   const atendentes = div.querySelectorAll("div.agent div.message-user-name");
+  const horario = div.querySelectorAll("message-time");
+
+  function ajustarHorario(dataStr) {
+  // Regex para capturar dia, mês, ano, hora e minuto
+  const regex = /(\d+) de (\w+)\. de (\d+) (\d+):(\d+)/;
+  const meses = { "jan": 0, "fev": 1, "mar": 2, "abr": 3, "mai": 4, "jun": 5, 
+                  "jul": 6, "ago": 7, "set": 8, "out": 9, "nov": 10, "dez": 11 };
+
+  const match = dataStr.match(regex);
+  if (!match) return "Formato inválido"; // Se a string estiver errada
+
+  let [_, dia, mesTexto, ano, hora, minuto] = match;
+  const mes = meses[mesTexto.toLowerCase()]; // Converte o nome do mês para número
+
+  // Criar objeto Date com o horário original
+  let data = new Date(Date.UTC(ano, mes, dia, hora, minuto));
+
+  // Remover 3 horas
+  data.setUTCHours(data.getUTCHours() - 3);
+
+  // Recriar a string no mesmo formato
+  const novaHora = String(data.getUTCHours()).padStart(2, "0"); // Garante 2 dígitos
+  const novoMinuto = String(data.getUTCMinutes()).padStart(2, "0");
+
+  return `${dia} de ${mesTexto}. de ${ano} ${novaHora}:${novoMinuto} (UTC)`;
+}
+  // Modifica horario
+  horario.forEach(function (horario) {
+    horario.textContent = ajustarHorario(horario);
+  });
 
   // Modificar o conteúdo de todos os spans encontrados
   atendentes.forEach(function (atendente) {
