@@ -42,7 +42,7 @@ function modificarNomeAtendenteEExcluirDiv(html, novoNome) {
     const novaHora = String(data.getUTCHours()).padStart(2, "0"); // Garante 2 dígitos
     const novoMinuto = String(data.getUTCMinutes()).padStart(2, "0");
 
-    return `${dia} de ${mesTexto}. de ${ano} ${novaHora}:${novoMinuto} (UTC)`;
+    return `${dia} de ${mesTexto}. de ${ano} ${novaHora}:${novoMinuto}`;
   }
   // Modifica horario
   horario.forEach(function (horario) {
