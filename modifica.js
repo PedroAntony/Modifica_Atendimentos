@@ -33,9 +33,7 @@ function modificarNomeAtendenteEExcluirDiv(html, novoNome) {
   return `${dia} de ${mesTexto}. de ${ano} ${novaHora}:${novoMinuto} (UTC)`;
 }
   // Modifica horario
-  horario.forEach(function (horario) {
-    horario.textContent = ajustarHorario(horario.textContent);
-  });
+
 
   // Modificar o conteúdo de todos os spans encontrados
   atendentes.forEach(function (atendente) {
