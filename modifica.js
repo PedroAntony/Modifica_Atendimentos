@@ -6,7 +6,7 @@ function modificarNomeAtendenteEExcluirDiv(html, novoNome) {
 
   // 1. Identificar todos os spans pelo nome da classe 'atendente-nome' dentro da div.agent
   const atendentes = div.querySelectorAll("div.agent div.message-user-name");
-  const horario = div.querySelectorAll("message-time");
+  const horario = div.querySelectorAll("div.message-time");
 
   function ajustarHorario(dataStr) {
   // Regex para capturar dia, mês, ano, hora e minuto
